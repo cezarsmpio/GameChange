@@ -8,6 +8,6 @@ Ginder is an experiment using Redux with ES6, VueJS and CSS variables.
 
 ## Demonstration
 
-![View this experiment.](http://cezarluiz0.github.com/ginder/)
+[View this experiment.](http://cezarluiz0.github.com/ginder/)
 
 Works only in Chrome 49 and Firefox 45.
