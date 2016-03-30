@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gaminder</title>
+
+  <meta name="viewport" content="width=device-width">
+
+  <link href='https://fonts.googleapis.com/css?family=Dosis:700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="wrap" id="app">
+    <h1 class="title">Ginder</h1>
+
+    <div>
+      <span class="folder">
+        <span class="folder__number" v-text="later"></span>
+      </span>
+
+      <p
+        v-show="hasMoreGames()"
+        class="no-results"
+      >
+        No more games x(
+      </p>
+
+      <ul
+        v-show="active != games.length"
+        class="games"
+        v-touch:swipeleft="dislikeGame"
+        v-touch:swiperight="likeGame"
+        v-touch:tap="seeLaterGame"
+      >
+        <li
+          v-for="(index, game) in games"
+          track-by="$index"
+          class="games__item"
+          :class="{
+            'games__item--liked': game.liked,
+            'games__item--disliked': game.disliked,
+            'games__item--seelater': game.seelater,
+            'games__item--active': active == index,
+            'games__item--next': (active + 1) == index,
+            'games__item--next-next': (active + 2) == index,
+          }"
+        >
+          <img
+            :src="game.cover"
+            class="games__cover"
+          >
+          <h3
+            class="games__title"
+            v-text="game.title">
+          </h3>
+        </li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <button
+        class="btn btn--dislike js-btn-dislike"
+        v-on:click="dislikeGame"
+        :disabled="hasMoreGames()"
+      >
+      </button>
+      <button
+        class="btn btn--seelater js-btn-seelater"
+        v-on:click="seeLaterGame"
+        :disabled="hasMoreGames()"
+      >
+      </button>
+      <button
+        class="btn btn--like js-btn-like"
+        v-on:click="likeGame"
+        :disabled="hasMoreGames()"
+      >
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/redux.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+  <script src="bower_components/hammerjs/hammer.min.js"></script>
+  <script src="bower_components/vue-touch/vue-touch.js"></script>
+
+  <script src="js/actions/games.js"></script>
+  <script src="js/reducers/games.js"></script>
+  <script src="js/stores/games.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
